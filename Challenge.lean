@@ -14,5 +14,5 @@ informal result.
 -/
 
 /-- Replace this toy statement and docstring with the result being submitted. -/
-theorem PrincipiaTemplate.main_result (n : ℕ) : n + n = 2 * n := by
+theorem Dropping3Bodies.main_result (n : ℕ) : n + n = 2 * n := by
   sorry
