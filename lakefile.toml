@@ -1,6 +1,6 @@
-name = "Dropping3Bodies"
+name = "PrincipiaThreeBodies"
 version = "0.1.0"
-defaultTargets = ["Dropping3Bodies", "Challenge", "Solution"]
+defaultTargets = ["PrincipiaThreeBodies", "Challenge", "Solution"]
 
 [[require]]
 name = "mathlib"
@@ -8,7 +8,7 @@ git = "https://github.com/leanprover-community/mathlib4.git"
 rev = "v4.35.0-rc2"
 
 [[lean_lib]]
-name = "Dropping3Bodies"
+name = "PrincipiaThreeBodies"
 
 [[lean_lib]]
 name = "Challenge"
@@ -18,3 +18,11 @@ roots = ["Challenge"]
 name = "Solution"
 roots = ["Solution"]
 
+
+[[lean_lib]]
+name = "Dropping3Bodies"
+globs = ["Dropping3Bodies.*"]
+
+[[lean_lib]]
+name = "NBody"
+globs = ["NBody.*"]

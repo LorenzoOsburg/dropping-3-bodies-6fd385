@@ -1,22 +1,38 @@
 module
 
-public import Mathlib.Data.Nat.Basic
+public import Mathlib.Analysis.InnerProductSpace.PiL2
+public import PrincipiaThreeBodies.Definitions
 
--- Add `@[expose]` to public definitions whose bodies downstream clients need.
-public section
+@[expose] public section
 
 /-!
-# Supporting proof development
+# Basic objects for the planar Dropping Three Bodies problem
 
-Replace this example with the library containing your proof. Code imported only
-by `Solution.lean` may use arbitrary pinned Git dependencies. Keep the trusted
-statement surface in `Challenge.lean` much smaller.
+The current project is a formalization scaffold.  The analytical theorem
+statements and proof milestones are recorded in `docs/formalization-roadmap.md`.
 -/
 
-namespace Dropping3Bodies
+namespace DroppingThreeBodies
 
-/-- The elementary library result used to prove the template's advertised statement. -/
-theorem add_self_eq_two_mul (n : ℕ) : n + n = 2 * n := by
-  exact (Nat.two_mul n).symm
+noncomputable section
 
-end Dropping3Bodies
+/-- Montgomery's pair-sum moment. -/
+def pairMoment (m : Fin 3 → ℝ) (q : Fin 3 → Point) : ℝ :=
+  m 0 * m 1 * dist (q 0) (q 1) ^ 2 +
+  m 1 * m 2 * dist (q 1) (q 2) ^ 2 +
+  m 0 * m 2 * dist (q 0) (q 2) ^ 2
+
+/-- Admissible rest data: positive point masses at distinct noncollinear points. -/
+structure InitialData where
+  mass : Fin 3 → ℝ
+  position : Fin 3 → Point
+  positive_mass : ∀ i, 0 < mass i
+  pairwise_distinct : ∀ i j, i ≠ j → position i ≠ position j
+  noncollinear : signedDoubleArea position ≠ 0
+
+/-- Initial zero velocities, kept separate to make the rest condition explicit. -/
+def initialVelocity (_data : InitialData) : Fin 3 → Point := fun _ => 0
+
+end
+
+end DroppingThreeBodies

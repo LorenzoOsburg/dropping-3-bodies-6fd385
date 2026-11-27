@@ -57,6 +57,8 @@ jobs:
           build: true
 
   docs:
+    # Optional: doc-gen4 exceeds the standard runner's memory limit.
+    if: github.event_name == 'workflow_dispatch'
     name: Build API documentation
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -75,6 +77,7 @@ jobs:
           MATHLIB_NO_CACHE_ON_UPDATE: "1"
           DISABLE_EQUATIONS: "1"
           DOCGEN_SRC: github
+          LEAN_NUM_THREADS: "2"
         run: lake build Dropping3Bodies:docs
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
