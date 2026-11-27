@@ -3,7 +3,7 @@
  "packages":
  [{"type": "path",
    "scope": "",
-   "name": "Dropping3Bodies",
+   "name": "PrincipiaThreeBodies",
    "manifestFile": "lake-manifest.json",
    "inherited": false,
    "dir": "../",
