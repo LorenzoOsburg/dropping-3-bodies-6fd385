@@ -57,6 +57,8 @@ jobs:
           build: true
 
   docs:
+    # Optional: doc-gen4 exceeds the standard runner's memory limit.
+    if: github.event_name == 'workflow_dispatch'
     name: Build API documentation
     runs-on: ubuntu-latest
     timeout-minutes: 30
