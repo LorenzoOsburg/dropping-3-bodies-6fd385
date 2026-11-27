@@ -1,76 +1,259 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# formalization.yaml v0.4, started by Principia from https://principia-math.com/projects/6fd385f995b49c7a4d929f6f47b979a9.
-# Replace every TEMPLATE value before submitting.
+
 version: "v0.4"
 
 project:
-  name: "Dropping 3 Bodies"
+  name: "Dropping Three Bodies"
   description: >-
-    We prove some properties of brake orbits in the (Newtonian) 3 body-problem.
+    Lean formalization of contraction for three planar bodies released
+    from rest under symmetric attractive central forces, and of the
+    first collision-free syzygy and strict side-order preservation for
+    equal positive masses with a common inverse-power potential of
+    exponent 0 < α < 2.
+
+  # Include all substantive human contributors to the formalization.
   authors:
-    - "manuelrobertquaschner"
-    - "lorenzosburg"
-    - "moritzscholz"
-    - "Moritz"
-  license: "Apache-2.0"
+    - "Manuel Quaschner"
+    - "Lorenz Osburg"
+
+  # People responsible for maintaining the submitted repository.
   responsible_maintainers:
-    - "manuelrobertquaschner"
-    - "lorenzosburg"
-    - "moritzscholz"
-    - "Moritz"
+    - "Lorenz Osburg"
+
+  license: "Apache-2.0"
 
 classification:
-  arxiv: ["math-ph"]
-  msc2020: ["70F07", "70F10"]
+  arxiv: ["math.DS", "math.LO"]
+  msc2020: ["70F07", "03B35"]
 
 sources:
-  # Choose one result origin. For a result first presented by this formalization use
-  # type: original-proof and relationship: other; otherwise cite the source with
-  # relationship: formalizes, adapts, or independently-proves.
-  - title: "TEMPLATE: title of the mathematical source"
-    type: "TEMPLATE: paper, book, original-proof, or other"
-    relationship: "TEMPLATE: formalizes, adapts, independently-proves, background, or other"
+  - title: "Dropping Three Bodies: Moment of Inertia and Side Ordering"
+    type: manuscript
+    authors:
+      - "Manuel Quaschner"
+      - "Moritz Link"
+      - "Lorenz Osburg"
+      - "Moritz Scholz"
+    id: "f62a25dd311dc693e1c926477ae69f3098f8d282:dropping_bodies_17_11.pdf"
+    location: "Theorems 2.1 and 2.2, and Section 6"
+    relationship: adapts
+    note: >-
+      Team manuscript containing the mathematical arguments underlying
+      the formalization. Q1 is formalized for general symmetric
+      attractive central pair forces and includes tensor and area
+      statements. Q2 uses the subcritical inverse-power range and
+      physical acceleration coefficient αg/m.
 
-related_formalizations: []
+  - title: "Dropping three bodies"
+    authors:
+      - "Richard Montgomery"
+    type: web post
+    id: "https://mathoverflow.net/questions/13933/dropping-three-bodies"
+    location: "Questions 1 and 2"
+    relationship: background
+
+  - title: "From Brake to Syzygy"
+    authors:
+      - "Richard Moeckel"
+      - "Richard Montgomery"
+      - "Andrea Venturelli"
+    type: article
+    id: "https://doi.org/10.1007/s00205-012-0502-y"
+    relationship: background
+
+  - title: >-
+      The zero angular momentum, three-body problem:
+      All but one solution has syzygies
+    authors:
+      - "Richard Montgomery"
+    type: article
+    id: "https://doi.org/10.1017/S0143385707000338"
+    relationship: background
 
 status:
   scope: >-
-    TEMPLATE: state exactly what is and is not formalized, including any weaker
-    theorem, changed hypotheses, or omitted material.
-  sorry_count: "TEMPLATE: unquoted nonnegative integer"
-  sorry_in_definitions: "TEMPLATE: unquoted nonnegative integer"
-  axioms: []
+    
+    The formalization proves two main results for planar
+    three-body brake orbits. First, for arbitrary positive
+    masses and symmetric, strictly attractive C1 central
+    pair forces, it establishes strict contraction of the
+    centered spatial second-moment tensor, strict decrease
+    of the scalar mass moment and oriented area, and
+    finiteness of the initial noncollinear branch.
+    The mass-moment derivative is also negative at a
+    regular first syzygy.
+
+    Second, for equal positive masses, scalene initial
+    configurations, and homogeneous power-law potentials
+    with 0 < alpha < 2, it proves the existence of a finite
+    first regular syzygy, collision exclusion, strict
+    preservation of side ordering, and identification
+    of the middle body.
+
+    The internal Lean development additionally formalizes
+    the torque equation, division-free kinematic identity,
+    side-comparison mechanism, quantitative energy-based
+    collision barrier, and endpoint continuation argument.
+
+    The manuscript's explicit general-power angle-time
+    bound is not separately formalized; an analogous
+    quantitative bound is proved for Newtonian gravity.
+
+
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
 
 automation:
   methods:
-    - method: "TEMPLATE: manual, copilot, agent, autonomous, or other"
-      models: ["TEMPLATE: model names, or replace this list with []"]
-      framework: "TEMPLATE: framework name, or n/a"
-      tool_setup: "TEMPLATE: editors, tactics, agents, or other tools used"
-      cost:
-        wall_time: "TEMPLATE: approximate elapsed effort"
-        spend_usd: "TEMPLATE: amount, subscription-based, or not tracked"
-        hardware: "TEMPLATE: local machine, API-only, or other"
-      prompting_notes: "TEMPLATE: representative prompting notes, or n/a"
-  spend_usd: "TEMPLATE: total amount, subscription-based, or not tracked"
-  notes: "TEMPLATE: describe the overall human and automation workflow"
+    - method: agent
+      models:
+        - "gpt-6-luna"
+        - "gpt-6.1-sol"
+      framework: "OpenAI Codex Desktop with built-in subagents"
+      tool_setup: >-
+        Original Dropping3Bodies development used Lean 4 v4.32.0-rc1,
+        pinned Mathlib, Lake, Git, and shell tools. Verification
+        included module and root builds and transitive axiom audits
+        for public declarations.
+      prompting_notes: >-
+        The project lead selected the source manuscript and target
+        results, directed the use of the pinned Mathlib revision,
+        and approved delegation of proof tasks. Available session
+        records describe high reasoning effort. Luna implemented
+        Lean proof code, while Sol prepared formalization plans,
+        audited theorem contracts, and coordinated integration.
+
+    - method: agent
+      models:
+        - "gpt-6.1-sol"
+        - "gpt-6-astra"
+        - "gpt-6.2-astra"
+        - "gpt-6.2-sol"
+      framework: "OpenAI Codex"
+      tool_setup: >-
+        These model identifiers are recorded in accessible November
+        sessions associated with generalized Q1 and power-law Q2
+        work. The formalization used Lean, Mathlib, Lake, source
+        checks, and axiom audits.
+      prompting_notes: >-
+        Human-directed mathematical development and checking of
+        the generalized central-force results and the power-law
+        first-syzygy and side-ordering results. Session metadata
+        does not establish which individual proof lines were
+        generated by each model.
+
+    - method: agent
+      models:
+        - "gpt-6.2-sol"
+      framework: "OpenAI Codex"
+      tool_setup: >-
+        Migration of the frozen Lean development to the official
+        Principia template and its newer Lean toolchain. The work
+        included shared definition extraction, statement interface
+        preparation, compatibility edits, builds, axiom checks,
+        and execution of the official sandboxed comparator using
+        Lean's kernel, NanoDa, and con-ron.
+      prompting_notes: >-
+        Human instructions required preservation of the frozen
+        mathematics and existing theorem contracts, a subcritical
+        Q2 interface, and an additional Q1 area-derivative theorem.
+        The final solution advertises eleven theorems.
+
+  spend_usd: "not tracked"
+
+  notes: >-
+    AI assistance was used extensively throughout the Lean
+    development. The original framework was developed under human
+    direction using Codex and subagents, followed by further
+    human-directed theorem development and a separate Principia
+    migration. Available rollout metadata confirms only part of
+    the complete model history. Session token counters are not
+    reliable project-wide usage totals. No reliable aggregate
+    monetary cost is available. The mathematical scope and
+    submission requirements were directed by the human team.
 
 fidelity:
-  divergences: "TEMPLATE: all known divergences from the cited source, or none known"
+  divergences: >-
+    
+divergences: >-
+    The two advertised main theorems agree with their
+    mathematical statements in the manuscript, subject
+    to the documented normalization and indexing
+    conventions.
+
+    The manuscript additionally presents an explicit
+    angle-based upper bound for the first syzygy time
+    for general subcritical power-law potentials.
+    The Lean development proves an analogous explicit
+    angle-time bound for Newtonian gravity, while
+    finiteness for general positive attractive powers
+    follows from the Jacobi/Riccati area argument.
+
+    Some intermediate results use equivalent formulations
+    or different normalizations. These differences do
+    not weaken the advertised main theorems.
+
+    In fact for Q2 the Lean development proves a more general statement
+    of \alpha ≤ 2, while the manuscript restricts to \alpha < 2.
 
 review:
-  status: "TEMPLATE: honest review status, for example self-assessed"
+  status: "self-assessed"
+
   reviewers:
-    - "TEMPLATE: reviewer name, or none"
-  notes: "TEMPLATE: describe statement audits and mathematical review performed"
+    - "Lorenz Osburg"
+
+  notes: >-
+    
+review:
+  notes: >-
+    Human-guided review included examination of the mathematical
+    definitions, theorem statements, assumptions, and their
+    correspondence with the research manuscript. The upstream
+    development also records a partial human-guided walkthrough
+    of selected statements and definitions.
+
+    Agent-assisted reviews checked theorem contracts and source
+    consistency. Lean builds and transitive axiom audits were
+    performed. An upstream review dated 5 November 2026 at
+    revision 32864f4 reported 1,318 public declarations relying
+    only on propext, Classical.choice, and Quot.sound.
+
+    The submitted Principia development was additionally checked
+    by exact statement-type comparison and the official
+    sandboxed comparator, including Lean kernel, NanoDa, and
+    con-ron acceptance. See VERIFICATION.md and its logs.
+
+    Human mathematical review was internal and is not presented
+    as an independent external peer review. A complete manual
+    line-by-line examination of every Lean proof is not claimed.
+
+    Several supplementary notes document a targeted human-guided
+    comparison of selected Lean statements.
+
+
 
 alignment:
-  namespace: "Dropping3Bodies"
-  statements:
-    - source: "TEMPLATE: source theorem or section"
-      lean: "Dropping3Bodies.main_result"
-      module: "Challenge"
-      status: "TEMPLATE: proved, partial, adapted, or other honest description"
-      note: "TEMPLATE: explain the correspondence and any qualifications"
+  namespace: PrincipiaThreeBodies
 
-acknowledgements: "Mathlib and the Lean community; Principia (principia-math.com)"
+  statements:
+    - source: 'dropping_three_bodies.tex, label thm:inertia'
+      lean: PrincipiaThreeBodies.centerOfMassMomentCurve_strictAntiOn_initialBranch
+      module: Solution
+      status: proved
+      note: >-
+        Representative Q1 theorem. The complete ten-declaration
+        Q1 inventory and its precise hypotheses are documented
+        in STATEMENTS.md.
+
+    - source: 'dropping_three_bodies.tex, label thm:ordering'
+      lean: PrincipiaThreeBodies.power_q2_subcritical
+      module: Solution
+      status: proved
+      note: >-
+        The advertised theorem assumes alpha < 2 and invokes
+        the underlying theorem valid for alpha <= 2.
+
+acknowledgements: >-
+  Lean, Mathlib, the Principia template, and Richard Montgomery
+  for the motivating questions.
