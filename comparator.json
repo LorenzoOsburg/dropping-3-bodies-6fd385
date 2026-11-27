@@ -1,8 +1,23 @@
 {
   "challenge_module": "Challenge",
   "solution_module": "Solution",
-  "theorem_names": ["Dropping3Bodies.main_result"],
+  "theorem_names": [
+    "PrincipiaThreeBodies.centerOfMassMomentCurve_strictAntiOn_initialBranch",
+    "PrincipiaThreeBodies.centerOfMassMomentCurve_deriv_neg",
+    "PrincipiaThreeBodies.centeredSpatialMoment_deriv_symmetric",
+    "PrincipiaThreeBodies.centeredSpatialMoment_deriv_neg",
+    "PrincipiaThreeBodies.orientedArea_strictAntiOn_initialBranch",
+    "PrincipiaThreeBodies.orientedArea_deriv_neg",
+    "PrincipiaThreeBodies.sqrtAbsArea_second_deriv_neg",
+    "PrincipiaThreeBodies.sqrtAbsArea_strictConcaveOn_initialBranch",
+    "PrincipiaThreeBodies.maximal_initialBranch_endpoint_pos_finite",
+    "PrincipiaThreeBodies.centerOfMassMomentCurve_deriv_neg_at_regular_endpoint",
+    "PrincipiaThreeBodies.power_q2_subcritical"
+  ],
   "definition_names": [],
-  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
-  "enable_nanoda": true
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ]
 }
