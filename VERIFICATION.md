@@ -89,3 +89,16 @@ configured in `.github/workflows/ci.yml`.
 
 The frozen checkout remained clean at the combined checkpoint during
 verification. No commits or pushes were made.
+
+
+## Supplementary mathematical audits
+
+The following reports provide additional human-guided
+reviews of selected mathematical arguments and their
+corresponding Lean formalizations.
+
+These documents supplement, but do not replace, the
+machine-checked Lean proofs and official Comparator results.
+
+- [Generalized Theorem and Tensor Audit](docs/audits/Generalized_Theorem_2_1_and_Newton_Tensor_Lean_Audit_v2_2.pdf)
+- [Power-Law Q2 Semantic Audit](docs/audits/Power_Law_Q2_Lean_Semantic_Audit_v1_0.pdf)
